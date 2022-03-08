@@ -58,7 +58,7 @@ void draw() {
   
   //slider
   line(75, 380, 75, 600);
-  circle(75, )
+  circle(75, 480, 30);
   
 }
 
@@ -92,4 +92,6 @@ void mouseReleased() {
       stroke(chosencolor);
       line(pmouseX, pmouseY, mouseX, mouseY);
     }
+    
+    
   }
