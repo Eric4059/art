@@ -18,10 +18,12 @@ float sliderY;
 
 
 void setup() {
-  size(1000, 800); 
+  size(1000, 800, P2D); 
   background(white);
   stroke(0);
   sliderY = 480;
+  textSize(30);
+  textAlign(CENTER, CENTER);
 }
 
 
@@ -31,7 +33,7 @@ void setup() {
 void draw() {
   stroke(0);
   strokeWeight(2);
-  fill(#797979);
+  fill(#585454);
   rect(0, 0, 150, 800);
 
   //buttons
@@ -70,6 +72,22 @@ void draw() {
   line(75, 380, 75, 600);
   tactileCircle(75, sliderY, (pow(sliderY/150, 2.7)));
   circle(75, sliderY, (pow(sliderY/150, 2.7)));
+  
+  //new load save
+  stroke(0);
+  tactile(15, 625, 120, 40);
+  rect(15, 625, 120, 40);
+  
+  tactile(15, 685, 120, 40);
+  rect(15, 685, 120, 40);
+  
+  tactile(15, 745, 120, 40);
+  rect(15, 745, 120, 40);
+  
+  fill(0);
+  text("New", 75, 640);
+  text("Load", 75, 700);
+  text("Save", 75, 760);
 }
 
 
@@ -95,7 +113,30 @@ void mouseReleased() {
   if (mouseX > x && mouseX < x+w && mouseY > y+300 && mouseY < y+l+300) {
     chosencolor = white;
   }
+  //new
+  if (mouseX > x && mouseX < x+w && mouseY > y+615 && mouseY < y+l+615) {
+    background(white);
+  }
+  //load
+  if (mouseX > x && mouseX < x+w && mouseY > y+675 && mouseY < y+l+675) {
+    background(white);
+    selectInput("Pick an image to load", "open image");
+  }
+  //save
+  if (mouseX > x && mouseX < x+w && mouseY > y+735 && mouseY < y+l+735) {
+    background(white);
+    selectOutput("Choose a name for your new image file", "saveImage");
+  }
   controlslider();
+}
+
+void saveImage(File f){
+  if(f != null){
+     PImage canvas = get(150, 0, width-150, height);
+     canvas.save(f.getAbsolutePath());
+  }
+
+
 }
 
 void tactile(int X, int Y, int W, int L) {
@@ -123,10 +164,8 @@ void mouseDragged() {
   controlslider();
 }
 
-void controlslider(){
-if(mouseX > 60 && mouseX < 90 && mouseY > 380 && mouseY < 600 ){
-  sliderY = mouseY;
-
+void controlslider() {
+  if (mouseX > 60 && mouseX < 90 && mouseY > 380 && mouseY < 600 ) {
+    sliderY = mouseY;
   }
-
 }
