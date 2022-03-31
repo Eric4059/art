@@ -5,6 +5,7 @@ color green = #4BB229;
 color purple = #9400FF;
 color black = #000000;
 color white = #FFFFFF;
+color circle = #FFFFFF;
 int x = 15;
 int y = 10;
 int w = 120;
@@ -14,8 +15,8 @@ color chosencolor;
 float sliderY;
 
 PImage tennis;
-boolean ballOn;
-
+boolean ballOn = false;
+boolean eraserOn = false;
 
 
 
@@ -80,10 +81,12 @@ void draw() {
   stroke(0);
   line(75, 380, 75, 600);
   tactileCircle(75, sliderY, (pow(sliderY/150, 2.7)));
+  fill(chosencolor);
   circle(75, sliderY, (pow(sliderY/150, 2.7)));
 
   //new load save
   stroke(0);
+  fill(255);
   tactile(15, 625, 120, 40);
   rect(15, 625, 120, 40);
 
@@ -94,13 +97,18 @@ void draw() {
   rect(15, 745, 120, 40);
 
   fill(0);
-  text("New", 75, 640);
+  text("New", 75, 640); 
   text("Load", 75, 700);
   text("Save", 75, 760);
 
   //stamp tool
-  fill(white);
-  tactileStamp(240, 65, 50);
+  if (ballOn == false) {
+    circle = white;
+  } else {
+    circle = yellow;
+  }
+  fill(circle);
+  tactileCircle(240, 65, 50);
   circle(240, 65, 100);
   image(tennis, 200, 25, 80, 80);
 }
@@ -153,11 +161,11 @@ void mouseReleased() {
   //slider
 
   controlslider();
-  
+
   //stamp button
-  if(dist(240, 65, mouseX, mouseY) < 50){
-     ballOn = !ballOn;
-  } 
+  if (dist(240, 65, mouseX, mouseY) < 50) {
+    ballOn = !ballOn;
+  }
 }
 
 void saveImage(File f) {
@@ -201,8 +209,9 @@ void mouseDragged() {
     }
   } else {
     image(tennis, mouseX, mouseY, 80, 80);
-  
   }
+
+
   controlslider();
 }
 
